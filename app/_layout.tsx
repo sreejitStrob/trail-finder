@@ -1,19 +1,22 @@
-import { Stack } from 'expo-router';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Drawer } from 'expo-router/drawer';
 
 export default function Layout() {
   return (
-    <Stack
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: '#f4511e',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Drawer  screenOptions={{
+        drawerType:  'back',
+        drawerStyle:  { width: '60%' },
+        overlayColor: 'transparent',
       }}>
-      {/* Optionally configure static options outside the route.*/}
-      <Stack.Screen name="index" options={{}} />
-    </Stack>
+        <Drawer.Screen
+          name="index" // This is the name of the page and must match the url from root
+          options={{
+            drawerLabel: 'Home',
+            title: 'overview',
+          }}
+        />
+      </Drawer>
+    </GestureHandlerRootView>
   );
 }
