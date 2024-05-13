@@ -9,13 +9,7 @@ export default function Layout() {
         drawerStyle:  { width: '60%' },
         overlayColor: 'transparent',
       }}>
-        <Drawer.Screen
-          name="index" // This is the name of the page and must match the url from root
-          options={{
-            drawerLabel: 'Home',
-            title: 'overview',
-          }}
-        />
+    
       </Drawer>
     </GestureHandlerRootView>
   );
