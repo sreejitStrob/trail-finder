@@ -6,7 +6,7 @@ export default function home ()  {
   return (
     <View style={styles.container}>
       <Text>
-          Trail finder
+          Trail finder1
       </Text>
     </View>
   )

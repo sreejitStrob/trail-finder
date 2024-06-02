@@ -6,7 +6,7 @@ export default function index ()  {
   return (
     <View style={styles.container}>
       <Text>
-          Trail finder Index
+          Trail finder Index11
       </Text>
     </View>
   )
