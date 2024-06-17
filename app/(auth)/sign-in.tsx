@@ -3,6 +3,7 @@ import { Stack, useNavigation } from 'expo-router';
 import { useEffect } from 'react';
 import React, { useState } from 'react'
 import { Alert, Button, Image, Pressable, SafeAreaView, StyleSheet, Switch, Text, TextInput, View } from 'react-native'
+import axios from 'axios';
 import logo from "../../assets/images/react-logo.png";
 import facebook from "../../assets/images/react-logo.png";
 import linkedin from "../../assets/images/react-logo.png";
@@ -10,19 +11,46 @@ import tiktok from "../../assets/images/react-logo.png";
 
 export default function SignIn() {
   const navigation = useNavigation();
+  const [click,setClick] = useState(false);
+  const [username,setUsername]=  useState("");
+  const [password,setPassword]=  useState("");
+  const [error,setError]=  useState("");
 
   useEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, [navigation]);
 
-  const [click,setClick] = useState(false);
-  const {username,setUsername}=  useState("");
-  const {password,setPassword}=  useState("");
+  const loginAction = () => {
+
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'http://192.168.1.40:4444/v1/',
+      headers: { }
+    };
+
+    axios.request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+
+      setError(JSON.stringify(response.data))
+
+      Alert.alert(JSON.stringify(response.data))
+    })
+    .catch((error) => {
+      console.log(error);
+
+      Alert.alert(JSON.stringify(error))
+    });
+  }
+
+  
 return (
   <SafeAreaView style={styles.container}>
       
       <Image source={logo} style={styles.image} resizeMode='contain' />
       <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>{error}</Text>
       <View style={styles.inputView}>
           <TextInput style={styles.input} placeholder='EMAIL OR USERNAME' value={username} onChangeText={setUsername} autoCorrect={false}
       autoCapitalize='none' />
@@ -42,17 +70,11 @@ return (
       </View>
 
       <View style={styles.buttonView}>
-          <Pressable style={styles.button} onPress={() => Alert.alert("Login Successfuly!","see you in my instagram if you have questions : must_ait6")}>
+          <Pressable style={styles.button} onPress={loginAction}>
               <Text style={styles.buttonText}>LOGIN</Text>
           </Pressable>
-          <Text style={styles.optionsText}>OR LOGIN WITH</Text>
       </View>
-      
-      <View style={styles.mediaIcons}>
-              <Image source={facebook} style={styles.icons}   />
-              <Image source={tiktok} style={styles.icons}  />
-              <Image source={linkedin} style={styles.icons}  />
-      </View>
+    
 
       <Text style={styles.footerText}>Don't Have Account?<Text style={styles.signup}>  Sign Up</Text></Text>
 
@@ -60,6 +82,8 @@ return (
   </SafeAreaView>
 )
 }
+
+
 
 const styles = StyleSheet.create({
     container : {
@@ -152,6 +176,7 @@ const styles = StyleSheet.create({
     footerText : {
       textAlign: "center",
       color : "gray",
+      paddingTop: 30
     },
     signup : {
       color : "blue",
