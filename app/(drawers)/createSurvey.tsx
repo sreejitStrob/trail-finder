@@ -1,15 +1,44 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import SuperCluster from 'react-native-maps-super-cluster';
-
+import { FloatingAction } from "react-native-floating-action";
+import { Ionicons } from '@expo/vector-icons';
 export default function CreateSurvey() {
-  // Sample data of markers
-  const markers = [
-    { id: 1, coordinate: { latitude: 37.78825, longitude: -122.4324 }, title: 'Marker 1' },
-    { id: 2, coordinate: { latitude: 37.79825, longitude: -122.4224 }, title: 'Marker 2' },
-    // Add more markers as needed
+  const [markerPosition, setMarkerPosition] = useState({
+    latitude: 37.78825,
+    longitude: -122.4324,
+  });
+
+  const actions = [
+    {
+      text: "Accessibility",
+      icon:   <Ionicons name="home"  />,
+      name: "bt_accessibility",
+      position: 2
+    },
+    {
+      text: "Language",
+      icon:   <Ionicons name="home"  />,
+      name: "bt_language",
+      position: 1
+    },
+    {
+      text: "Location",
+      icon:   <Ionicons name="home"  />,
+      name: "bt_room",
+      position: 3
+    },
+    {
+      text: "Video",
+      icon:   <Ionicons name="home"  />,
+      name: "bt_videocam",
+      position: 4
+    }
   ];
+
+  const handleMarkerDragEnd = (e) => {
+    setMarkerPosition(e.nativeEvent.coordinate);
+  };
 
   return (
     <View style={styles.container}>
@@ -21,19 +50,27 @@ export default function CreateSurvey() {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
+        onRegionChangeComplete={(region) => {
+          // Update marker position based on map's center coordinate
+          setMarkerPosition(region);
+        }}
       >
-        {/* Marker clustering */}
-        <SuperCluster
-          initialMarkers={markers}
-          renderMarker={(marker) => (
-            <Marker
-              key={marker.id}
-              coordinate={marker.coordinate}
-              title={marker.title}
-            />
-          )}
+        {/* Draggable truck marker */}
+        <Marker
+          draggable
+          coordinate={markerPosition}
+          onDragEnd={handleMarkerDragEnd}
+          title="Draggable Truck Marker"
+          description="Drag me around!"
         />
       </MapView>
+      <FloatingAction
+    actions={actions}
+    onPressItem={name => {
+      console.log(`selected button: ${name}`);
+    }}
+  />
+  
     </View>
   );
 }
