@@ -11,7 +11,11 @@ export default function Index() {
       try {
         const user = await AsyncStorage.getItem('user');
         console.log('====> logged in user in useEffect', user);
-        setIsLoggedIn(user !== null);
+        if (user !== null) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
       } catch (error) {
         console.error('Error checking login status', error);
         setIsLoggedIn(false);
