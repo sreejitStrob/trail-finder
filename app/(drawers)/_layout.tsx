@@ -9,8 +9,10 @@ export default function Layout() {
       <Drawer
         screenOptions={{
           drawerType: "slide",
-          drawerStyle: { width: '60%', borderRightWidth: 0, backgroundColor: '#013220' },
+          drawerStyle: { width: '60%', borderRightWidth: 0, backgroundColor: '#000046' },
           overlayColor: 'transparent',
+          headerStyle: { backgroundColor: '#000046' }, // Set default header color here
+          headerTintColor: 'white', // Set default header text color here
         }}
       >
         <Drawer.Screen
@@ -21,7 +23,9 @@ export default function Layout() {
             drawerIcon: ({ size, color }) => (
               <Ionicons name="home" size={size} color="white" />
             ),
-            drawerActiveBackgroundColor: 'red',
+            drawerActiveBackgroundColor: 'orange',
+            headerStyle: { backgroundColor: '#000046' }, // Specific header color for "home" screen
+            headerTintColor: 'white',
           }}
         />
         <Drawer.Screen
@@ -33,9 +37,11 @@ export default function Layout() {
               <Ionicons name="search" size={size} color="white" />
             ),
             headerRight: () => (
-              <Text>test</Text>
+              <Text style={{ color: 'white' }}>test</Text> // Set text color to match header color
             ),
-            drawerActiveBackgroundColor: 'red',
+            drawerActiveBackgroundColor: 'orange',
+            headerStyle: { backgroundColor: '#000046' }, // Specific header color for "index" screen
+            headerTintColor: 'white',
           }}
         />
         <Drawer.Screen
@@ -48,7 +54,9 @@ export default function Layout() {
             drawerIcon: ({ size, color }) => (
               <Ionicons name="create" size={size} color="white" />
             ),
-            drawerActiveBackgroundColor: 'red',
+            drawerActiveBackgroundColor: 'orange',
+            headerStyle: { backgroundColor: '#000046' }, // Specific header color for "createSurvey" screen
+            headerTintColor: 'white',
           }}
         />
         

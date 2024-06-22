@@ -20,7 +20,7 @@ export default function home ()  {
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <SurveyCard onPress={surveyClickManager} text="Start a Survey" />
-        <SurveyCard onPress={surveyClickManager} text="Another Survey" />
+        <SurveyCard onPress={surveyClickManager} text="Survey List" />
       </View>
     </View>
   );
