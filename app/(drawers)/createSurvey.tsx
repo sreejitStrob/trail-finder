@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, Alert, KeyboardAvoidingView, Platform, ScrollView, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import CardView from '../../components/cardView';
 
@@ -33,6 +33,7 @@ const FormScreen = () => {
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.innerContainer}>
             <Text style={styles.label}>Name</Text>
+            
             <TextInput
               style={styles.input}
               value={name}
@@ -78,15 +79,6 @@ const FormScreen = () => {
                 <Text style={styles.buttonText}>Submit</Text>
               </LinearGradient>
             </TouchableOpacity>
-
-            <FlatList
-              data={activities}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => <CardView item={item} />}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.listContainer}
-            />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

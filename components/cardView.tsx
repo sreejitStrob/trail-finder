@@ -5,7 +5,7 @@ import { View, Text, StyleSheet } from 'react-native';
 const CardView = ({ item }) => {
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>Activity Details</Text>
+      <Text style={styles.title}>Survey Details</Text>
       <Text style={styles.label}>Name: <Text style={styles.value}>{item.name}</Text></Text>
       <Text style={styles.label}>Notes: <Text style={styles.value}>{item.notes}</Text></Text>
       <Text style={styles.label}>Distance: <Text style={styles.value}>{item.distance}</Text></Text>
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
-    width: 250, // Adjust the width to fit your design
+    width: 200, // Adjust the width to fit your design
   },
   title: {
     fontSize: 18,
