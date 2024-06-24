@@ -1,7 +1,36 @@
+import React, { useContext } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Drawer } from 'expo-router/drawer';
 import { Ionicons } from '@expo/vector-icons';
-import { Text } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
+import { AuthContext } from '../../context/AuthProvider';
+import { useNavigation } from 'expo-router';
+
+function CustomDrawerContent(props) {
+  const { logout } = useContext(AuthContext);
+  const navigation = useNavigation();
+  const handleLogout = () => {
+    logout()
+    navigation.navigate('(auth)'); 
+  };
+
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <View style={styles.divider} />
+      <DrawerItem
+        label="Logout"
+        labelStyle={{ color: 'white' }}
+        icon={({ size, color }) => (
+          <Ionicons name="log-out" size={size} color="white" />
+        )}
+        onPress={handleLogout}
+        style={styles.logoutItem}
+      />
+    </DrawerContentScrollView>
+  );
+}
 
 export default function Layout() {
   return (
@@ -14,6 +43,7 @@ export default function Layout() {
           headerStyle: { backgroundColor: '#000046' }, // Set default header color here
           headerTintColor: 'white', // Set default header text color here
         }}
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
       >
         <Drawer.Screen
           name="home"
@@ -36,9 +66,6 @@ export default function Layout() {
             drawerIcon: ({ size, color }) => (
               <Ionicons name="search" size={size} color="white" />
             ),
-            headerRight: () => (
-              <Text style={{ color: 'white' }}>test</Text> // Set text color to match header color
-            ),
             drawerActiveBackgroundColor: 'orange',
             headerStyle: { backgroundColor: '#000046' }, // Specific header color for "index" screen
             headerTintColor: 'white',
@@ -59,8 +86,18 @@ export default function Layout() {
             headerTintColor: 'white',
           }}
         />
-        
       </Drawer>
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  divider: {
+    height: 1,
+    backgroundColor: 'gray',
+    marginVertical: 10,
+  },
+  logoutItem: {
+    marginTop: 'auto', // Puts the logout button at the bottom
+  },
+});
