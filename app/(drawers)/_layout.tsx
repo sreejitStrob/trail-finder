@@ -6,12 +6,14 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { AuthContext } from '../../context/AuthProvider';
 import { useNavigation } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function CustomDrawerContent(props) {
   const { logout } = useContext(AuthContext);
   const navigation = useNavigation();
   const handleLogout = () => {
     logout()
+    console.log('========>AsyncStorage.getItem',AsyncStorage.getItem('user'))
     navigation.navigate('(auth)'); 
   };
 

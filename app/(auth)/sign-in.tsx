@@ -6,6 +6,7 @@ import { Alert, Button, Image, Pressable, SafeAreaView, StyleSheet, Switch, Text
 import axios from 'axios';
 import logo from "../../assets/images/_truck.png";
 import { AuthContext } from '../../context/AuthProvider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -37,12 +38,13 @@ export default function SignIn() {
     };
 
     axios.request(config)
-      .then((response) => {
+      .then(async (response) => {
         let incomingLoginData = JSON.stringify(response.data)
         console.log(JSON.stringify(response.data));
-      
+        console.log('=====>AsyncStorage true1',await AsyncStorage.getItem('user'))
         setError(JSON.stringify(response.data))
-        login(incomingLoginData)
+         await login(incomingLoginData)
+         console.log('=====>AsyncStorage true2',await AsyncStorage.getItem('user'))
         navigation.navigate('(drawers)'); 
         Alert.alert(JSON.stringify(response.data))
       })
